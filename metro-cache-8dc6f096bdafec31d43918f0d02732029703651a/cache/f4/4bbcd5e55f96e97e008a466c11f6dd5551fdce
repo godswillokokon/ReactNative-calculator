@@ -1,0 +1,167 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = _require(_dependencyMap[1], "./../node_modules/react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _jsxFileName = "/home/og/Documents/react-native/IT-App/components/map.js";
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _reactNative = _require(_dependencyMap[2], "react-native");
+
+    var _expo = _require(_dependencyMap[3], "expo");
+
+    var _expo2 = _interopRequireDefault(_expo);
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        Maps: {
+            displayName: "Maps"
+        }
+    };
+
+    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/home/og/Documents/react-native/IT-App/components/map.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var Maps = _wrapComponent("Maps")(function (_React$Component) {
+        _inherits(Maps, _React$Component);
+
+        function Maps() {
+            var _ref,
+                _this2 = this;
+
+            var _temp, _this, _ret;
+
+            _classCallCheck(this, Maps);
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Maps.__proto__ || Object.getPrototypeOf(Maps)).call.apply(_ref, [this].concat(args))), _this), _this._getLocationAsyc = function _callee() {
+                var _ref2, status, location;
+
+                return regeneratorRuntime.async(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return regeneratorRuntime.awrap(_expo2.default.Permissions.askAsync(_expo2.default.Permissions.LOCATION));
+
+                            case 2:
+                                _ref2 = _context.sent;
+                                status = _ref2.status;
+
+                                if (!(status !== 'granted')) {
+                                    _context.next = 7;
+                                    break;
+                                }
+
+                                console.error("Location permission not granted");
+                                return _context.abrupt("return");
+
+                            case 7:
+                                _context.next = 9;
+                                return regeneratorRuntime.awrap(_expo2.default.Location.getCurrentPositionAsync({}));
+
+                            case 9:
+                                location = _context.sent;
+
+                                _this.setState({
+                                    location: location
+                                });
+
+                            case 11:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, null, _this2);
+            }, _temp), _possibleConstructorReturn(_this, _ret);
+        }
+
+        _createClass(Maps, [{
+            key: "componentDidMount",
+            value: function componentDidMount() {
+                this._getLocationAsyc();
+            }
+        }, {
+            key: "render",
+            value: function render() {
+                if (this.state.location) {
+                    return _react3.default.createElement(View, {
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 23
+                        }
+                    });
+                }
+
+                return _react3.default.createElement(
+                    _expo2.default.MapView,
+                    {
+                        style: {
+                            flex: 1
+                        },
+                        initialRegion: {
+                            latitude: this.state.location.coords.latitude,
+                            longitude: this.state.location.coords.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421
+                        },
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 27
+                        }
+                    },
+                    _react3.default.createElement(_expo2.default.MapView.Marker, {
+                        coordinate: this.state.location.coords,
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 35
+                        }
+                    })
+                );
+            }
+        }]);
+
+        return Maps;
+    }(_react3.default.Component));
+
+    exports.default = Maps;
+
+    var styles = _reactNative.StyleSheet.create({
+        container: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: _expo2.default.Constants.statusBarHeight,
+            backgroundColor: '#ecf0f1'
+        }
+    });
+});
